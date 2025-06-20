@@ -3,12 +3,19 @@ package jtunes_trabajoparejas;
 import javax.swing.ImageIcon;
 
 public class JTunes {
-
+    private static JTunes instancia;
     SongClass canciones[];
 
-    public JTunes(int tamano) {
-        canciones = new SongClass[tamano];
+    private JTunes() {
+        canciones = new SongClass[10];
 
+    }
+    
+    public static JTunes getInstance(){
+        if(instancia == null){
+          instancia = new JTunes();
+        }
+        return instancia;
     }
 
     public boolean addSong(int codigo, String nombre, double precio, ImageIcon imagenDisco) {
