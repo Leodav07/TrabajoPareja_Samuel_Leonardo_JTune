@@ -32,7 +32,7 @@ public class cancionesListadas extends javax.swing.JFrame {
         
         SongClass[] canciones = gestion.getAllSongs();
         
-                Arrays.sort(canciones, (u1, u2) -> {
+        Arrays.sort(canciones, (u1, u2) -> {
             if (u1 == null) return 1;
             if (u2 == null) return -1;
             return Double.compare(u2.rating(), u1.rating()); // de mayor a menor
@@ -40,7 +40,7 @@ public class cancionesListadas extends javax.swing.JFrame {
 
         for (SongClass u : gestion.getAllSongs()) {
             if (u != null) {
-                Object[] fila = {u.getImagenDisco(), u.getCodigo(), u.getNombre(), u.rating()};
+                Object[] fila = {u.getCodigo(), u.getNombre()};
                 modelo.addRow(fila);
             }
         }
