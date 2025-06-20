@@ -247,7 +247,7 @@ public class cancionesListadas extends javax.swing.JFrame {
         // TODO add your handling code here:
        String code = (String) jComboBox1.getSelectedItem();
        cancionSeleccionada = gestion.searchSong(Integer.parseInt(code.substring(0, code.indexOf("-"))));
-       System.out.println(cancionSeleccionada.getImagenDisco().getDescription());
+       
        imagenLabel.setIcon(cancionSeleccionada.getImagenDisco());
        nombreLabel.setText(cancionSeleccionada.getNombre());
        codigoLabel.setText(String.valueOf(cancionSeleccionada.getCodigo()));
