@@ -4,7 +4,11 @@
  */
 package jtunes_trabajoparejas;
 
+import java.awt.HeadlessException;
+import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +16,14 @@ import javax.swing.JFileChooser;
  */
 public class AgregarPantalla extends javax.swing.JFrame {
 
+    JTunes gestion;
+
     /**
      * Creates new form MainJTunes
      */
     public AgregarPantalla() {
         initComponents();
+        gestion = JTunes.getInstance();
     }
 
     /**
@@ -36,9 +43,9 @@ public class AgregarPantalla extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        tcodigo = new javax.swing.JTextField();
+        tnombre = new javax.swing.JTextField();
+        tprecio = new javax.swing.JTextField();
         seleccionButton = new javax.swing.JButton();
         regresarButton = new javax.swing.JButton();
 
@@ -67,6 +74,11 @@ public class AgregarPantalla extends javax.swing.JFrame {
         agregarButton.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         agregarButton.setText("AGREGAR");
         agregarButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        agregarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Agency FB", 1, 28)); // NOI18N
         jLabel2.setText("Agregar Canciones");
@@ -80,11 +92,21 @@ public class AgregarPantalla extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Agency FB", 1, 22)); // NOI18N
         jLabel5.setText("Imagen:");
 
-        jTextField1.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        tcodigo.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        tcodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tcodigoActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        tnombre.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        tnombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tnombreActionPerformed(evt);
+            }
+        });
 
-        jTextField4.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        tprecio.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
 
         seleccionButton.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
         seleccionButton.setText("SELECCIONAR IMAGEN");
@@ -119,10 +141,10 @@ public class AgregarPantalla extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)
+                            .addComponent(tnombre)
+                            .addComponent(tprecio)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(seleccionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -149,15 +171,15 @@ public class AgregarPantalla extends javax.swing.JFrame {
                 .addGap(107, 107, 107)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -194,11 +216,12 @@ public class AgregarPantalla extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    int res;
+    JFileChooser seleccionImagen = new JFileChooser();
     private void seleccionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionButtonActionPerformed
-        JFileChooser seleccionImagen = new JFileChooser();
-        int res = seleccionImagen.showOpenDialog(this);
-        
+
+        res = seleccionImagen.showOpenDialog(this);
+
     }//GEN-LAST:event_seleccionButtonActionPerformed
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
@@ -208,11 +231,36 @@ public class AgregarPantalla extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        cancionesListadas cL = new cancionesListadas();
-        cL.setVisible(true);
-        this.dispose();
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
+        try {
+            int codigo = Integer.parseInt(tcodigo.getText());
+
+            String nombre = tnombre.getText();
+            int precio = Integer.parseInt(tprecio.getText());
+            File archivo = seleccionImagen.getSelectedFile();
+            ImageIcon imagen = new ImageIcon(archivo.getAbsolutePath());
+
+            if (gestion.addSong(codigo, nombre, precio, imagen)) {
+                JOptionPane.showMessageDialog(null, "Canción agregada correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar canción.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error.");
+        }
+    }//GEN-LAST:event_agregarButtonActionPerformed
+
+    private void tcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tcodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tcodigoActionPerformed
+
+    private void tnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tnombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,10 +307,10 @@ public class AgregarPantalla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton regresarButton;
     private javax.swing.JButton seleccionButton;
+    private javax.swing.JTextField tcodigo;
+    private javax.swing.JTextField tnombre;
+    private javax.swing.JTextField tprecio;
     // End of variables declaration//GEN-END:variables
 }
