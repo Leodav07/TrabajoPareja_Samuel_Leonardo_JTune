@@ -40,7 +40,7 @@ public class cancionesListadas extends javax.swing.JFrame {
 
         for (SongClass u : gestion.getAllSongs()) {
             if (u != null) {
-                Object[] fila = {u.getImagenDisco(), u.getNombre(), u.rating()};
+                Object[] fila = {u.getImagenDisco(), u.getCodigo(), u.getNombre(), u.rating()};
                 modelo.addRow(fila);
             }
         }
