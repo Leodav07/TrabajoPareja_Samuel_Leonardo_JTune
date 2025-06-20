@@ -10,13 +10,13 @@ import java.util.Arrays;
  * @author unwir
  */
 public class cancionesListadas extends javax.swing.JFrame {
-    JTunes gestion;
+    JTunes gestion = JTunes.getInstance();
     /**
      * Creates new form cancionesListadas
      */
     public cancionesListadas() {
         initComponents();
-        gestion = JTunes.getInstance();
+        
         
     }
 
@@ -32,15 +32,15 @@ public class cancionesListadas extends javax.swing.JFrame {
         
         SongClass[] canciones = gestion.getAllSongs();
         
-                Arrays.sort(usuarios, (u1, u2) -> {
+                Arrays.sort(canciones, (u1, u2) -> {
             if (u1 == null) return 1;
             if (u2 == null) return -1;
-            return Integer.compare(u2.getPuntaje(), u1.getPuntaje()); // de mayor a menor
+            return Double.compare(u2.rating(), u1.rating()); // de mayor a menor
         });
 
-        for (Usuarios u : gestion.getJugadores()) {
+        for (SongClass u : gestion.getAllSongs()) {
             if (u != null) {
-                Object[] fila = {u.getName(), u.getPuntaje()};
+                Object[] fila = {u.getImagenDisco(), u.getNombre(), u.rating()};
                 modelo.addRow(fila);
             }
         }
@@ -79,7 +79,7 @@ public class cancionesListadas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "  ", "Nombre", "Rating"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

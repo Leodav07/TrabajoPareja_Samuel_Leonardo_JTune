@@ -29,6 +29,8 @@ public class SongClass {
     public String getNombre() {
         return nombre;
     }
+    
+    
 
     public double getPrecio() {
         return precio;
