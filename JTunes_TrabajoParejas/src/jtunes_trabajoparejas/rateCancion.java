@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package jtunes_trabajoparejas;
-
+import javax.swing.*;
 /**
  *
  * @author hnleo
  */
 public class rateCancion extends javax.swing.JFrame {
-
+     JTunes gestion = JTunes.getInstance();
+     private SongClass cancionSeleccionada = cancionesListadas.cancionSelect();
     /**
      * Creates new form rateCancion
      */
     public rateCancion() {
         initComponents();
+        imagenPortada.setIcon(cancionSeleccionada.getImagenDisco());
+       nombreLabel1.setText(cancionSeleccionada.getNombre());
+        
     }
 
     /**
@@ -31,9 +35,10 @@ public class rateCancion extends javax.swing.JFrame {
         nombreLabel = new javax.swing.JLabel();
         nombreLabel1 = new javax.swing.JLabel();
         nombreLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        calificacionText = new javax.swing.JTextField();
         regresarButton = new javax.swing.JButton();
         imagenPortada1 = new javax.swing.JLabel();
+        calificarBt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(400, 200));
@@ -57,7 +62,7 @@ public class rateCancion extends javax.swing.JFrame {
         nombreLabel2.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         nombreLabel2.setText("Califición del 1 al 5:");
 
-        jTextField1.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        calificacionText.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
 
         regresarButton.setFont(new java.awt.Font("Agency FB", 1, 12)); // NOI18N
         regresarButton.setText("REGRESAR");
@@ -71,6 +76,15 @@ public class rateCancion extends javax.swing.JFrame {
         imagenPortada1.setBackground(new java.awt.Color(255, 255, 255));
         imagenPortada1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jtunes_trabajoparejas/estrella.png"))); // NOI18N
 
+        calificarBt.setFont(new java.awt.Font("Agency FB", 1, 12)); // NOI18N
+        calificarBt.setText("CALIFICAR");
+        calificarBt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        calificarBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calificarBtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -82,15 +96,18 @@ public class rateCancion extends javax.swing.JFrame {
                         .addComponent(imagenPortada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(nombreLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imagenPortada1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(nombreLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(calificacionText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(imagenPortada1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(calificarBt, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(62, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(nombreLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -114,8 +131,10 @@ public class rateCancion extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nombreLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(imagenPortada1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(calificacionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imagenPortada1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(calificarBt)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -138,6 +157,15 @@ public class rateCancion extends javax.swing.JFrame {
 
       this.dispose();
     }//GEN-LAST:event_regresarButtonActionPerformed
+
+    private void calificarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calificarBtActionPerformed
+       int stars = Integer.parseInt(calificacionText.getText());
+       if(stars>=0 && stars<=5){
+       cancionSeleccionada.addStars(stars);
+       JOptionPane.showMessageDialog(null, "Calificación enviada.");}else{
+         JOptionPane.showMessageDialog(null, "Ingrese un número valido del 1 al 5.");  
+       }
+    }//GEN-LAST:event_calificarBtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,10 +203,11 @@ public class rateCancion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField calificacionText;
+    private javax.swing.JButton calificarBt;
     private javax.swing.JLabel imagenPortada;
     private javax.swing.JLabel imagenPortada1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JLabel nombreLabel1;
     private javax.swing.JLabel nombreLabel2;

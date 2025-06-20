@@ -128,7 +128,7 @@ public class MainJTunes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
-       
+
         System.exit(0);
     }//GEN-LAST:event_regresarButtonActionPerformed
 
