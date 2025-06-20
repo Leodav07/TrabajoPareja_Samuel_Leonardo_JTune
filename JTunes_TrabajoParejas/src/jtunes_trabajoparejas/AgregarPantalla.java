@@ -238,14 +238,18 @@ public class AgregarPantalla extends javax.swing.JFrame {
     private void agregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarButtonActionPerformed
         try {
             int codigo = Integer.parseInt(tcodigo.getText());
-
             String nombre = tnombre.getText();
-            int precio = Integer.parseInt(tprecio.getText());
+            double precio = Double.parseDouble(tprecio.getText());
             File archivo = seleccionImagen.getSelectedFile();
+            if (!archivo.exists()) {
+            JOptionPane.showMessageDialog(null, "El archivo de imagen no existe.");
+            return;
+        }
             ImageIcon imagen = new ImageIcon(archivo.getAbsolutePath());
 
             if (gestion.addSong(codigo, nombre, precio, imagen)) {
                 JOptionPane.showMessageDialog(null, "Canción agregada correctamente.");
+                limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar canción.");
             }
@@ -254,6 +258,12 @@ public class AgregarPantalla extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_agregarButtonActionPerformed
 
+    private void limpiar(){
+        tcodigo.setText("");
+        tnombre.setText("");
+        tprecio.setText("");
+        seleccionImagen.setSelectedFile(null);
+    }
     private void tcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tcodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tcodigoActionPerformed
