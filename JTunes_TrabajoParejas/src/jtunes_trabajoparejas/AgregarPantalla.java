@@ -249,7 +249,7 @@ public class AgregarPantalla extends javax.swing.JFrame {
 
             if (gestion.addSong(codigo, nombre, precio, imagen)) {
                 JOptionPane.showMessageDialog(null, "Canción agregada correctamente.");
-                
+                System.out.println("");
                 limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrió un error al agregar canción.");

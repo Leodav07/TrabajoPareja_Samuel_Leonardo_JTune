@@ -19,7 +19,6 @@ public class JTunes {
     }
 
     public boolean addSong(int codigo, String nombre, double precio, ImageIcon imagenDisco) {
-
         if (searchSong(codigo) == null) {
             for (int i = 0; i < canciones.length; i++) {
                 if (canciones[i] == null) {
@@ -69,4 +68,6 @@ public class JTunes {
         }
         return cancionesDisponibles;
     }
+    
+   
 }
